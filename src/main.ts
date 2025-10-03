@@ -1,22 +1,27 @@
 import express from "express";
-// import routes from './routes'
+import router from './routes';
+import dotenv from 'dotenv'
+import helthRoter from './helthCheck/helthCheck.route';
+import VoteRouter from './votos/votos.routes';
 
+dotenv.config()
+//require('dotenv').config();
 
-const port = 3003
+const port = process.env.PORT || 3003
 const app = express()
-// Para JSON
+// Para JSON y Formularios
 app.use(express.json());
-// Para formularios
 app.use(express.urlencoded({ extended: true }));
 
- 
-app.get('/test-ts', (req, res) => {
-    res.send('Hello World!')
-})
+
+app.use('/', router)
+app.use('/', helthRoter)
+app.use('/votos', VoteRouter)
+
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+    console.log(`Servidor corriendo en: http://localhost:${port}`);
+});
 
 
 
