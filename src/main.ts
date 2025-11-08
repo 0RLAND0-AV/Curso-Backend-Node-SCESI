@@ -1,13 +1,15 @@
+// src/main.ts
 import express from "express";
-import router from './routes';
+import router from './config/server.routes';
 import dotenv from 'dotenv'
-import helthRoter from './helthCheck/helthCheck.route';
-import VoteRouter from './votos/votos.routes';
+import helthRoter from './modules/helthCheck/helthCheck.route';
+import VoteRouter from './modules/votes/votos.routes';
 
 dotenv.config()
 //require('dotenv').config();
+console.log('process.env.PORT', process.env.PORT)
 
-const port = process.env.PORT || 3003
+const PORT = process.env.PORT || 3003
 const app = express()
 // Para JSON y Formularios
 app.use(express.json());
@@ -15,13 +17,14 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use('/', router)
-app.use('/', helthRoter)
-app.use('/votos', VoteRouter)
 
-
-app.listen(port, () => {
-    console.log(`Servidor corriendo en: http://localhost:${port}`);
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en: http://localhost:${PORT}`);
 });
+
+
+
+
 
 
 

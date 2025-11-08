@@ -1,0 +1,19 @@
+Clase 29/09/2025:
+Clase 30/09/2025:
+Clase 01/10/2025:
+Resumen: Reestructuramos el proyecto por responsabilidades
+src/config/ - Configuraciones generales del proyecto,Todo lo que define cómo arranca el servidor.
+server.routes.ts: Registro central de todas las rutas del servidor
+Creamos modulos de votes y healthchek y aplicamos Screaming arquitecture.(Arquitectura de Gritos) osea con solo 
+leer el nombre del archivo uno sabe de que trata su contenido, o almenos se da una idea.
+Cada modulo tiene su controllers.ts, su routes.ts y su service.ts(Este ultimo no lo tiene el modulo health)
+Controllers.-Lógica que Recibe peticiones HTTP y responde (Capa Controller)
+Routes.-Define las rutas del módulo (URL y método HTTP)
+Services.-Lógica de negocio / funciones CRUD (Capa Service)
+Aparte de eso en el modulo de votes, creamos las carpetas de dtos y interfaces.
+dtos.-Describe los campos requeridos para crear un voto, o actualizar un voto.
+interfaces.- Define la forma de los objetos del sistema (modelos, entidades)
+Tambien creamos la carpeta types, que contendra un index y un response.interface.ts(Originalmente service.interface.ts)
+Le cambie el nombre ya que suena mas representativo a lo que hace:
+Cada que alguien usa esta interface lo hace atraves de index, y algo interesante de usar index es que no pones el index. 
+TS ya sobreentiende que hay un index ahi asi que solo pones:import { IServiceResponse } from "../../types"; sin /index al final
