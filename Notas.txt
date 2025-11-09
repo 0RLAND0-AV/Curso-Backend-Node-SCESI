@@ -19,10 +19,20 @@ Cada que alguien usa esta interface lo hace atraves de index, y algo interesante
 TS ya sobreentiende que hay un index ahi asi que solo pones:import { IServiceResponse } from "../../types"; sin /index al final
 
 Clase 07/10/2025:
-Resumen,instlacion de ORM sequealize, levantar servicio BD postgres en docker y archivos de configuración para BD.
+Resumen:instalacion de ORM sequealize, levantar servicio BD postgres en docker y archivos de configuración para BD.
 En carpeta config:
 creacion de database.config=Conexión y configuración de Sequelize
 env.config=Carga variables de entorno (.env)
 creacion del .sequelizerc=Configuración de rutas para Sequelize CLI, models, seeders, migrations.
 Creacion de archivo de configuración de la BD 
 db/config/config.js: Configuración de conexión a PostgreSQL (desarrollo, test, producción)
+
+Clase 08/10/2025:
+Resumen: Actualizo las operacioneas CRUD de votos. Ahora se integran con la BD, ya no con mock. Se aplico async,await. Tambien vimos Filtros.
+Vimos como implmentar filtros, por query paramts (osea filtrar en el endpoint ejemplo: /vote?name=blanco&finished=true&status=false)
+Tambien menciono que hay otra manera de hacer filtros que es por una metodo POST, poner el filtro en el body, body paramtns
+Al principio de la clase ya tiene agregado archivos 
+config/server.config.ts=  Define la configuración base del servidor Express: inicializa la app, aplica middlewares globales (JSON, URL encoded) y monta las rutas principales.
+modules/index.js= Busca y encuentra a todos los archivos models.ts que  existen en la carepta modules, indexea todo los modelos.
+Tambien es bueno poner console.logs, ver que setnecias SQL se ejecutan, copiar esas sentencias y preguntar a cahtsito o sitios web de
+optimizacion de consultas. Cuando las consultas son muy complejas es mejor hacer SQL pura papi.

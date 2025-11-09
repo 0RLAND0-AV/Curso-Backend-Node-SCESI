@@ -1,29 +1,25 @@
 // src/main.ts
-import express from "express";
-import router from './config/server.routes';
-import dotenv from 'dotenv'
-import helthRoter from './modules/helthCheck/helthCheck.route';
-import VoteRouter from './modules/votes/votos.routes';
+import { sequelize } from './config/database.config';
 
-dotenv.config()
-//require('dotenv').config();
-console.log('process.env.PORT', process.env.PORT)
+import Server from './config/server.config'
+import { ENV } from './config/env.config'
 
-const PORT = process.env.PORT || 3003
-const app = express()
-// Para JSON y Formularios
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+async function start() {
+  try {
+    await sequelize.authenticate();    
+    await sequelize.sync();
 
+    console.info('Se ha conectado a la base de datos!')
+    
+    Server.listen(ENV.PORT, () => {
+      console.log(`Server is running on http://localhost:${ENV.PORT}`)
+    })
+  } catch (error) {
+    console.error('Error al iniciar el servidor', error)
+  }
+}
 
-app.use('/', router)
-
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en: http://localhost:${PORT}`);
-});
-
-
-
+start()
 
 
 
