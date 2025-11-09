@@ -17,3 +17,12 @@ Tambien creamos la carpeta types, que contendra un index y un response.interface
 Le cambie el nombre ya que suena mas representativo a lo que hace:
 Cada que alguien usa esta interface lo hace atraves de index, y algo interesante de usar index es que no pones el index. 
 TS ya sobreentiende que hay un index ahi asi que solo pones:import { IServiceResponse } from "../../types"; sin /index al final
+
+Clase 07/10/2025:
+Resumen,instlacion de ORM sequealize, levantar servicio BD postgres en docker y archivos de configuración para BD.
+En carpeta config:
+creacion de database.config=Conexión y configuración de Sequelize
+env.config=Carga variables de entorno (.env)
+creacion del .sequelizerc=Configuración de rutas para Sequelize CLI, models, seeders, migrations.
+Creacion de archivo de configuración de la BD 
+db/config/config.js: Configuración de conexión a PostgreSQL (desarrollo, test, producción)
