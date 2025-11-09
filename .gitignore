@@ -2,5 +2,6 @@ node_modules/
 .gitignore
 src/script.ps1
 src/script2.ps1
+src/modules/script3.ps1
 .env
 .vscode/

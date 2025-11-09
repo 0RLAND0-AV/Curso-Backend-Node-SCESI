@@ -18,6 +18,8 @@ Le cambie el nombre ya que suena mas representativo a lo que hace:
 Cada que alguien usa esta interface lo hace atraves de index, y algo interesante de usar index es que no pones el index. 
 TS ya sobreentiende que hay un index ahi asi que solo pones:import { IServiceResponse } from "../../types"; sin /index al final
 
+Clase 06/10/2025:NO PASAMOS
+
 Clase 07/10/2025:
 Resumen:instalacion de ORM sequealize, levantar servicio BD postgres en docker y archivos de configuración para BD.
 En carpeta config:
@@ -36,3 +38,28 @@ config/server.config.ts=  Define la configuración base del servidor Express: in
 modules/index.js= Busca y encuentra a todos los archivos models.ts que  existen en la carepta modules, indexea todo los modelos.
 Tambien es bueno poner console.logs, ver que setnecias SQL se ejecutan, copiar esas sentencias y preguntar a cahtsito o sitios web de
 optimizacion de consultas. Cuando las consultas son muy complejas es mejor hacer SQL pura papi.
+
+Clase 13/10/2025:NO HAY VIDEO XD
+Segun los commits creo los modulos de auth y users.
+Resumen:Se revisaron las carpetas AUTH y USERS. Ambas implementan el manejo de autenticación y gestión de usuarios usando Express y Sequelize. 
+AUTH se centra en registro/login y recuperación de contraseñas (aún con partes pendientes), mientras que USERS maneja CRUD completo y filtros por query params.
+
+📁 auth/
+auth.controller.ts → Controlador Express que valida datos del request y llama a los servicios de register, login, forgotPassword y resetPassword. Maneja respuestas HTTP y errores.
+auth.routes.ts → Define las rutas /register, /login, /password/forgot, /password/reset. Conecta endpoints con el controlador.
+auth.service.ts → Contiene la lógica de negocio: crea usuarios en BD (usa el modelo User), busca usuarios por email y define servicios de recuperación de contraseña (pendientes de implementar).
+dtos/ → Define los tipos de datos esperados por los servicios (Register, Login, ForgotPassword, ResetPassword).
+interfaces/ → Define interfaces de respuesta (IAuthResponse) y el payload de token (IAuthTokenPayload).
+👉 Función general: implementar autenticación base (registro/login) con validaciones básicas. Pendiente: hash de contraseñas y recuperación por token.
+📁 users/
+users.controller.ts → Controlador completo CRUD (Create, Read, Update, Delete) y getUserProfile. Valida inputs, sanitiza filtros, y responde con status HTTP correctos.
+users.routes.ts → Define las rutas /, /profile, /:id, y métodos POST, GET, PUT, PATCH, DELETE.
+users.service.ts → Lógica de negocio: crea, actualiza, elimina y lista usuarios. Aplica filtros dinámicos con Sequelize (Op.iLike). Controla duplicados de email y valida existencia de registros.
+models/users.model.ts → Define el modelo Sequelize User con campos (firstName, email, country, etc.) y enums de rol (SUPER_ADMIN, ADMIN, USER).
+dtos/ → Define estructuras esperadas al crear o actualizar un usuario (CreateUser, UpdateUser).
+interfaces/ → Define el tipo IUser, enum UserRole, y filtros de búsqueda IUserFilter.
+👉 Función general: manejar toda la gestión de usuarios en BD, con validaciones y filtrado flexible por query params (nombre, email, rol, país, ciudad).
+
+Clase 14/10/2025:
+
+

@@ -3,11 +3,10 @@ import {Request, Response, Router} from 'express'
 
 import helthRoter from '../modules/helthCheck/helthCheck.route'
 import VoteRouter from '../modules/votes/votos.routes'
+import UserRouter from '../modules/users/users.routes'
+import AuthRouter from '../modules/auth/auth.routes'
 
 const router = Router()
-
-router.use('/', helthRoter)
-router.use('/voto', VoteRouter)
 
 router.get('/', (req, res) => {
     res.status(200).send({
@@ -15,6 +14,12 @@ router.get('/', (req, res) => {
         ok: true
     });
 });
+
+router.use('/', helthRoter)
+router.use('/voto', VoteRouter)
+router.use('/users', UserRouter)
+router.use('/auth', AuthRouter)
+
 router.use((req, res) => {
   res.status(404).send({
     message: 'page not found',
