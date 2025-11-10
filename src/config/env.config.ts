@@ -18,5 +18,4 @@ export const ENV = {
   PWD_SECRET: process.env.PWD_SECRET || 'asdf',
   SALTS: process.env.SALTS || '10',
   JWT_SECRET: process.env.JWT_SECRET || 'asdfg',
-  SOCKETIO_PORT: process.env.SOCKETIO_PORT || '3001',
 }

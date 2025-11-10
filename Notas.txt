@@ -60,6 +60,54 @@ dtos/ → Define estructuras esperadas al crear o actualizar un usuario (CreateU
 interfaces/ → Define el tipo IUser, enum UserRole, y filtros de búsqueda IUserFilter.
 👉 Función general: manejar toda la gestión de usuarios en BD, con validaciones y filtrado flexible por query params (nombre, email, rol, país, ciudad).
 
-Clase 14/10/2025:
+*****LOS IDS PRIMARIOS, no deben ser un simple numero, o bueno almenos eso nos recomendo. usamos UUID, que genera una ID de letras y numeros creo.(REVISAR)
 
+CLASE INTERMEDIA:
+Se trabajó el uso de JWT (JSON Web Tokens) y encriptación.
+Se explicó el funcionamiento de JWT: contiene una firma, una clave secreta (definida en .env), y usa un algoritmo criptográfico para validar autenticidad.
+Se implementaron librerías:
+bcrypt (hash de contraseñas)
+crypto-js
+jsonwebtoken
+Se crearon las carpetas:
+src/tools/crypto.tool.ts
+src/tools/jwt.tool.ts
+Se introdujeron los middlewares de validación de sesión y rol.
+
+Clase 14/10/2025:
+Resumen:
+Resumen: middlewarespara validar sesion y roles.
+Se implementaron middlewares para validar sesión (autenticación mediante JWT) y roles (autorización por tipo de usuario).
+Un middleware actúa como un “paso intermedio” entre la petición del cliente y la respuesta final.
+Vimos un poco de concepto de decoradores, hay diferentes como class-validator, JOI, zod, implementamos zod al modulo de auth,
+Estos decoradores se usan para validar los atributos de una interfaz, osea por ejemplo yo tengo una interfaz con atributo nombre
+cuando yo use esta interfaz en otro lado puedo usar el decorador para digamos definir que el nombre es @String. u talvez dependiendo 
+cual te haya instalado (class-validator, JOI, zod) se aplican como decoradoreso dorectamente en vez de Dtos definies las schemas.
+Cosas interesante que menciono: 
+Rate Limit → Limita la cantidad de peticiones por IP o usuario, previniendo ataques DDoS.
+Artillery (Node) → Herramienta para realizar pruebas de carga y rendimiento sobre APIs.
+
+*****ES IMPORTANTE QUE AL INICIO DE CADA PROYECTO SE DEBA APLICAR ESTE TIPO DE VALIDACIONES, PARA NO ESTAR PATALEADNO EN EL FUTURO.****
+
+Clase 15/10/2025:
+Repasamos conceptos de migraciones, como funcionan, revismoas docuemtnacion de sequealize, toda la clase vimos migraciones,seeders.
+algo interesante es que dependiento del ORM, cuando eliminamos algun registro de un tabla no lo hace, solo lo oculta, hay que revisar documentacion.
+
+RESUMEN ULTIMAS 4 CLASES:
+Creación de los modelos User y Auth con campos validados y roles definidos mediante enum.
+Implementación de JWT para la autenticación de usuarios y validación de sesión.
+Desarrollo de middlewares para controlar acceso según rol (por ejemplo, impedir que un usuario estándar acceda a rutas de administrador).
+Introducción a validaciones con Zod, garantizando que los datos enviados en las peticiones cumplan con el formato esperado.
+Uso de migraciones y seeders para mantener la base de datos versionada y con datos iniciales.
+Explicación del flujo completo de autenticación:
+    -Registro de usuario (Auth → Service → BD).
+    -Inicio de sesión → generación de JWT.
+    -Middleware valida token y rol.
+    -Acceso a rutas protegidas.
+EN SI TODO EL AVANCE DE ESA SEMANA(13-19/10/2025) SE RESUMEN EN REPASAR ESTO:
+Definir usuarios y roles.
+Validar atributos y estructuras (Zod, DTOs, interfaces).
+Implementar registro e inicio de sesión (Auth).
+Usar JWT y middlewares para proteger rutas.
+Aplicar migraciones/seeders para mantener consistencia de la BD.
 

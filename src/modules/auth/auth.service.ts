@@ -5,6 +5,8 @@ import { IResetPasswordDto } from './dtos/ResetPassword.dto';
 import { IAuthResponse } from './interfaces/auth.interfaces';
 import User from '../users/models/users.model';
 import { UserRole } from '../users/interfaces/users.interface';
+import { securePass } from '../../tools/crypto.tool';
+import { generateAccessToken } from '../../tools/jwt.tool';
 
 export const registerService = async (payload: IRegisterDto): Promise<IAuthResponse> => {
   try {
@@ -13,15 +15,27 @@ export const registerService = async (payload: IRegisterDto): Promise<IAuthRespo
       return { ok: false, message: 'Email is already in use' };
     }
 
+    const passHash = await securePass(payload.password)
+
+    console.log(
+      'passHash',passHash
+    )
+    if (passHash === undefined) {
+      throw new Error('Ha fallado el hash de la contraseña')
+    }
+
     const user = await User.create({
-      firstName: payload.firstName,
-      lastName: payload.lastName,
-      phoneNumber: payload.phoneNumber,
-      phoneCountryCode: payload.phoneCountryCode,
-      country: payload.country,
-      city: payload.city,
-      email: payload.email,
+      ...payload,
+      // firstName: payload.firstName,
+      // lastName: payload.lastName,
+      // phoneNumber: payload.phoneNumber,
+      // phoneCountryCode: payload.phoneCountryCode,
+      // country: payload.country,
+      // city: payload.city,
+      // email: payload.email,
+      // role: payload.role,
       role: UserRole.USER,
+      password: passHash,
     });
 
     return { ok: true, message: 'Registered successfully', data: { id: user.id, email: user.email } };
@@ -35,10 +49,29 @@ export const loginService = async (payload: ILoginDto): Promise<IAuthResponse> =
   try {
     const user = await User.findOne({ where: { email: payload.email } });
     if (!user) {
-      return { ok: false, message: 'Invalid credentials' };
+      return {
+        ok: false,
+        message: 'Invalid credentials',
+      };
     }
+
     // TODO: Add password verification when we store password hashes
-    return { ok: true, message: 'Login successful', data: { id: user.id, email: user.email } };
+    
+    const token = generateAccessToken({
+      email: user.email,
+      name: `${user.firstName} ${user.lastName}`,
+      sub: user.id,
+    })
+
+    return {
+      ok: true,
+      message: 'Login successful',
+      data: { 
+        id: user.id,
+        email: user.email,
+        token, // token: token
+      },
+    };
   } catch (error) {
     console.error('Error in loginService:', error);
     return { ok: false, message: 'Error logging in' };
